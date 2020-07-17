@@ -62,13 +62,17 @@ const Editable = ({
     }
   };
   const onPaste = e => {
-    e.preventDefault();
-    const { textContent } = e.currentTarget;
-    const text = e.clipboardData.getData("text/plain");
-    const fullText = textContent + text;
-    const mData = fullText.slice(0, +maxLength);
-    inputRef.current.innerHTML = "";
-    document.execCommand("insertHTML", false, mData);
+    const rem = Number(maxLength) - inputRef.current.innerText.length;
+    const selection = window.getSelection && window.getSelection() || '';
+    const isSelectedAll = selection.toString().length === inputRef.current.innerText.length || false;
+    if (rem <= 0) {
+      e.preventDefault();
+      const {textContent} = e.currentTarget;
+      const text = e.clipboardData.getData('text/plain');
+      const fullText = isSelectedAll ? text : textContent + text;
+      const mData = fullText.slice(0, Number(maxLength));
+      inputRef.current.innerText = mData;
+    }
   };
   const CustomTag = `${tag}`;
   return (
