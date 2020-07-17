@@ -17,12 +17,12 @@ export const RootWrapper = styled.div`
 `;
 
 export const InputContainer = styled.div`
-  width: ${props => (props.width === "auto" ? "auto" : `${props.width}px`)};
+  width: ${({width}) => width === "auto" ? "auto" : `${width}px`};
   text-align: left;
   outline: none;
 `;
 export const InputWrapper = styled.div`
-  width: ${props => (props.width === "auto" ? "auto" : `${props.width}px`)};
+  width: ${({width}) => width === "auto" ? "auto" : `${width}px`};
   * {
     outline: none;
   }
@@ -33,13 +33,11 @@ export const InputWrapper = styled.div`
     padding: 6px;
   }
   .text {
-    background-color: ${props =>
-    props.readOnly ? "transparent" : "transparent"};
-    width: ${props => (props.width === "auto" ? "auto" : `${props.width}px`)};
+    background-color: transparent;
+    width: ${({width}) => width === "auto" ? "auto" : `${width}px`};
     text-align: left;
     transition: border-color 0.2s ease-in-out 0s;
-    border: ${props =>
-    props.readOnly ? "2px solid white" : "2px solid black"};
+    border: ${({readOnly}) => readOnly ? "2px solid white" : "2px solid black"};
     border-radius: 3px;
   }
   .textarea {
