@@ -119,4 +119,4 @@ Editable.propTypes = {
   readOnly: PropTypes.bool
 };
 
-export default Editable;
+module.exports = Editable;
