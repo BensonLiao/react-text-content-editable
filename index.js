@@ -1,3 +1,3 @@
-const Editable = require('./src/Editable')
+const Editable = require('./src/Editable.jsx')
 
 module.exports = Editable
