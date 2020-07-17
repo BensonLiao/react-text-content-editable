@@ -1,6 +1,3 @@
-# build dir
-build/
-
 # node modules
 node_modules/
 package-lock.json
