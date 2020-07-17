@@ -13,19 +13,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env']
-          }
+          loader: 'babel-loader'
         }
       }
     ]
   },
   resolve: { 
+    extensions: ['.js', '.jsx'],
     alias: { 
       'react': path.resolve(__dirname, './node_modules/react') ,
       'react-dom': path.resolve(__dirname, './node_modules/react-dom')
