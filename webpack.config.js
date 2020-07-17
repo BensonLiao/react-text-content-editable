@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   mode: 'production',
-  entry: './src/Editable.jsx',
+  entry: './src/Editable.js',
   output: {
     path: path.join(__dirname, './build'),
     filename: 'index.js',
@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: {
@@ -23,7 +23,7 @@ module.exports = {
     ]
   },
   resolve: { 
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js'],
     alias: { 
       'react': path.resolve(__dirname, './node_modules/react') ,
       'react-dom': path.resolve(__dirname, './node_modules/react-dom')
