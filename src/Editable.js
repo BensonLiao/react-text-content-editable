@@ -125,7 +125,7 @@ Editable.propTypes = {
   value: PropTypes.string,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
-  maxLength: PropTypes.string.isRequired,
+  maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   type: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
   ellipseOnBlur: PropTypes.bool,
