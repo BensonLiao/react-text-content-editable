@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { createRef, useState } from "react";
 import PropTypes from "prop-types";
 import { Wrapper, RootWrapper, InputContainer, InputWrapper } from "./style";
 const Editable = ({
@@ -10,9 +10,10 @@ const Editable = ({
   value,
   readOnly,
   tag,
-  minWidth
+  minWidth,
+  innerRef
 }) => {
-  const inputRef = useRef();
+  const inputRef = innerRef || createRef();
   const [data] = useState(value);
   const [borderBottom, setBorderBottom] = useState("2px solid white");
   const [inputWidth, setInputWidth] = useState(width);
@@ -107,7 +108,8 @@ Editable.defaultProps = {
   height: "auto",
   type: "text",
   value: "",
-  readOnly: false
+  readOnly: false,
+  innerRef: null
 };
 
 Editable.propTypes = {
@@ -116,7 +118,8 @@ Editable.propTypes = {
   height: PropTypes.string.isRequired,
   maxLength: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  innerRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
 export default Editable;
