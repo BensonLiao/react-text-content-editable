@@ -1,5 +1,6 @@
 import React, { createRef, useState } from "react";
 import PropTypes from "prop-types";
+import { isStyledComponent } from 'styled-components';
 import { Wrapper, RootWrapper, InputContainer, InputWrapper } from "./style";
 const Editable = ({
   onChange,
@@ -12,7 +13,8 @@ const Editable = ({
   tag,
   minWidth,
   ellipseOnBlur,
-  innerRef
+  innerRef,
+  customWrapper
 }) => {
   const inputRef = innerRef || createRef();
   const [data] = useState(value);
@@ -79,9 +81,10 @@ const Editable = ({
       inputRef.current.innerText = mData;
     }
   };
+  const MainWrapper = customWrapper && isStyledComponent(customWrapper) ? customWrapper : Wrapper;
   const CustomTag = `${tag}`;
   return (
-    <Wrapper>
+    <MainWrapper extendStyle={customWrapper && !isStyledComponent(customWrapper) && customWrapper.props.style}>
       <RootWrapper>
         <InputContainer width={width}>
           <InputWrapper width={inputWidth} readOnly={readOnly} isOnFocus={isOnFocus} ellipseOnBlur={ellipseOnBlur}>
@@ -103,7 +106,7 @@ const Editable = ({
           </InputWrapper>
         </InputContainer>
       </RootWrapper>
-    </Wrapper>
+    </MainWrapper>
   );
 };
 
@@ -114,7 +117,8 @@ Editable.defaultProps = {
   value: "",
   readOnly: false,
   ellipseOnBlur: false,
-  innerRef: null
+  innerRef: null,
+  customWrapper: null
 };
 
 Editable.propTypes = {
@@ -125,7 +129,8 @@ Editable.propTypes = {
   type: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
   ellipseOnBlur: PropTypes.bool,
-  innerRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+  innerRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  customWrapper: PropTypes.oneOfType([PropTypes.object, PropTypes.element])
 };
 
 export default Editable;

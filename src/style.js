@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div.attrs(({extendStyle}) => ({
+  style: extendStyle
+}))`
   display: flex;
   min-width: 0px;
   width: 100%;
