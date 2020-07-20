@@ -2,7 +2,7 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define(["React"], factory);
+		define(["react"], factory);
 	else if(typeof exports === 'object')
 		exports["react-text-content-editable"] = factory(require("react"));
 	else
@@ -299,12 +299,12 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ "react":
 /*!**************************************************************************************!*\
-  !*** external {"commonjs":"react","commonjs2":"react","amd":"React","root":"React"} ***!
+  !*** external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"} ***!
   \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = __WEBPACK_EXTERNAL_MODULE_react__;\n\n//# sourceURL=webpack://react-text-content-editable/external_%7B%22commonjs%22:%22react%22,%22commonjs2%22:%22react%22,%22amd%22:%22React%22,%22root%22:%22React%22%7D?");
+eval("module.exports = __WEBPACK_EXTERNAL_MODULE_react__;\n\n//# sourceURL=webpack://react-text-content-editable/external_%7B%22root%22:%22React%22,%22commonjs2%22:%22react%22,%22commonjs%22:%22react%22,%22amd%22:%22react%22%7D?");
 
 /***/ })
 
