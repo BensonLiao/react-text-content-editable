@@ -11,6 +11,7 @@ const Editable = ({
   readOnly,
   tag,
   minWidth,
+  ellipseOnBlur,
   innerRef
 }) => {
   const inputRef = innerRef || createRef();
@@ -18,6 +19,7 @@ const Editable = ({
   const [borderBottom, setBorderBottom] = useState("2px solid white");
   const [inputWidth, setInputWidth] = useState(width);
   const [InputHeight, setInputHeight] = useState(height);
+  const [isOnFocus, setOnFocus] = useState(false);
   const placeCaretAtEnd = el => {
     el.focus();
     if (
@@ -38,6 +40,7 @@ const Editable = ({
     }
   };
   const onFocus = () => {
+    setOnFocus(true);
     if (!readOnly) {
       setInputWidth(width);
       setInputHeight(height);
@@ -46,6 +49,7 @@ const Editable = ({
   };
 
   const onBlur = () => {
+    setOnFocus(false);
     setBorderBottom("2px solid white");
     setInputHeight("auto");
     setInputWidth("auto");
@@ -80,7 +84,7 @@ const Editable = ({
     <Wrapper>
       <RootWrapper>
         <InputContainer width={width}>
-          <InputWrapper width={inputWidth} readOnly={readOnly}>
+          <InputWrapper width={inputWidth} readOnly={readOnly} isOnFocus={isOnFocus} ellipseOnBlur={ellipseOnBlur}>
             <CustomTag
               className={type}
               ref={inputRef}
@@ -109,6 +113,7 @@ Editable.defaultProps = {
   type: "text",
   value: "",
   readOnly: false,
+  ellipseOnBlur: false,
   innerRef: null
 };
 
@@ -119,6 +124,7 @@ Editable.propTypes = {
   maxLength: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
+  ellipseOnBlur: PropTypes.bool,
   innerRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 

@@ -33,6 +33,11 @@ export const InputWrapper = styled.div`
     padding: 6px;
   }
   .text {
+    ${({isOnFocus, ellipseOnBlur}) => isOnFocus ?
+    '' :
+    ellipseOnBlur && (`overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;`)}
     background-color: transparent;
     width: ${({width}) => width === "auto" ? "auto" : `${width}px`};
     text-align: left;
