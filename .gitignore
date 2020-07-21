@@ -4,4 +4,4 @@ package-lock.json
 .npmignore
 
 # WebStorm
-.idea
+.idea/
