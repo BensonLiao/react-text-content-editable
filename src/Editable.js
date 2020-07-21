@@ -55,9 +55,9 @@ const Editable = ({
   };
   const onInput = e => {
     const { textContent } = e.currentTarget;
-    const rem = Number(maxLength) - inputRef.current.innerText.length;
+    const rem = +maxLength - inputRef.current.innerText.length;
     if (rem <= 0) {
-      const slicedText = textContent.slice(0, Number(maxLength));
+      const slicedText = textContent.slice(0, +maxLength);
       inputRef.current.innerText = slicedText;
       placeCaretAtEnd(inputRef.current);
       onChange(slicedText);
@@ -66,7 +66,7 @@ const Editable = ({
     }
   };
   const onPaste = e => {
-    const rem = Number(maxLength) - inputRef.current.innerText.length;
+    const rem = +maxLength - inputRef.current.innerText.length;
     const selection = window.getSelection && window.getSelection() || '';
     const isSelectedAll = selection.toString().length === inputRef.current.innerText.length || false;
     if (rem <= 0) {
@@ -74,7 +74,7 @@ const Editable = ({
       const {textContent} = e.currentTarget;
       const text = e.clipboardData.getData('text/plain');
       const fullText = isSelectedAll ? text : textContent + text;
-      const mData = fullText.slice(0, Number(maxLength));
+      const mData = fullText.slice(0, +maxLength);
       inputRef.current.innerText = mData;
     }
   };
