@@ -24,17 +24,14 @@ const Editable = ({
   const [isOnFocus, setOnFocus] = useState(false);
   const placeCaretAtEnd = el => {
     el.focus();
-    if (
-      typeof window.getSelection !== "undefined" &&
-      typeof document.createRange !== "undefined"
-    ) {
+    if (window.getSelection && document.createRange) {
       const range = document.createRange();
       range.selectNodeContents(el);
       range.collapse(false);
-      var sel = window.getSelection();
+      const sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(range);
-    } else if (typeof document.body.createTextRange !== "undefined") {
+    } else if (document.body && document.body.createTextRange) {
       const textRange = document.body.createTextRange();
       textRange.moveToElementText(el);
       textRange.collapse(false);
@@ -56,11 +53,11 @@ const Editable = ({
     setInputHeight("auto");
     setInputWidth("auto");
   };
-  const onKeyUp = function(e) {
+  const onInput = e => {
     const { textContent } = e.currentTarget;
-    const rem = +maxLength - inputRef.current.innerText.length;
+    const rem = Number(maxLength) - inputRef.current.innerText.length;
     if (rem <= 0) {
-      const slicedText = textContent.slice(0, +maxLength);
+      const slicedText = textContent.slice(0, Number(maxLength));
       inputRef.current.innerText = slicedText;
       placeCaretAtEnd(inputRef.current);
       onChange(slicedText);
@@ -94,7 +91,7 @@ const Editable = ({
               contentEditable={!readOnly}
               onFocus={onFocus}
               onBlur={onBlur}
-              onInput={onKeyUp}
+              onInput={onInput}
               onPaste={onPaste}
               style={{
                 height: InputHeight === "auto" ? "auto" : `${InputHeight}px`,
