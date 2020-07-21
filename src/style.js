@@ -6,7 +6,6 @@ export const Wrapper = styled.div.attrs(({extendStyle}) => ({
   display: flex;
   width: ${({width}) => width};
   flex: 1 1 auto;
-  cursor: pointer;
 `;
 
 export const RootWrapper = styled.div`
