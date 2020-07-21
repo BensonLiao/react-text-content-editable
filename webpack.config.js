@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = (env = {}) => {
   return {
-    mode: env.mode || 'development',
+    mode: env.mode || 'production',
     entry: path.join(__dirname, 'src', 'Editable.js'),
     output: {
       path: path.join(__dirname, 'build'),
