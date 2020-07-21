@@ -7,7 +7,7 @@ module.exports = (env = {}) => {
       path: path.join(__dirname, 'build'),
       publicPath: '/build/',
       filename: 'index.js',
-      library: 'react-text-content-editable', 
+      library: 'react-content-editable', 
       libraryTarget: 'umd'
     },
     module: {

@@ -1,5 +1,5 @@
 {
-  "name": "react-text-content-editable",
+  "name": "react-content-editable",
   "version": "3.0.2",
   "description": "make content editable that includes features like input text or textarea",
   "main": "build/index.js",
@@ -11,6 +11,7 @@
     "build": "webpack"
   },
   "author": "Pradeep Kumar",
+  "contributors": ["Benson Liao"],
   "license": "MIT",
   "peerDependencies": {
     "react": "^16.13.1",
@@ -33,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pkumar98/react-text-content-editable"
+    "url": "https://github.com/BensonLiao/react-content-editable"
   },
   "keywords": [
     "react",
