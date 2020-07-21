@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import { isStyledComponent } from 'styled-components';
 import { Wrapper, RootWrapper, InputContainer, InputWrapper } from "./style";
 const Editable = ({
-  onChange,
   type,
+  onChange,
+  value,
+  tag,
   maxLength,
   height,
   width,
-  value,
-  readOnly,
-  tag,
   minWidth,
+  readOnly,
   ellipseOnBlur,
   innerRef,
   customWrapper
@@ -108,10 +108,11 @@ const Editable = ({
 };
 
 Editable.defaultProps = {
-  width: "auto",
-  height: "auto",
   type: "text",
   value: "",
+  width: "auto",
+  height: "auto",
+  minWidth: "auto",
   readOnly: false,
   ellipseOnBlur: false,
   innerRef: null,
@@ -119,11 +120,14 @@ Editable.defaultProps = {
 };
 
 Editable.propTypes = {
+  type: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
+  minWidth: PropTypes.string,
   maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  type: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
   ellipseOnBlur: PropTypes.bool,
   innerRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
