@@ -4,35 +4,27 @@ export const Wrapper = styled.div.attrs(({extendStyle}) => ({
   style: extendStyle
 }))`
   display: flex;
-  min-width: 0px;
-  width: 100%;
+  width: ${({width}) => width};
   flex: 1 1 auto;
 `;
 
 export const RootWrapper = styled.div`
   flex-direction: column;
-  width: 100%;
   display: flex;
+  width: 100%;
   max-width: 100%;
-  margin-left: -8px;
   flex: 0 1 auto;
 `;
 
 export const InputContainer = styled.div`
-  width: ${({width}) => width === "auto" ? "auto" : `${width}px`};
+  width: ${({width}) => width};
   text-align: left;
   outline: none;
 `;
 export const InputWrapper = styled.div`
-  width: ${({width}) => width === "auto" ? "auto" : `${width}px`};
+  width: ${({width}) => width};
   * {
     outline: none;
-  }
-  [contenteditable="false"] {
-    padding: 6px;
-  }
-  [contenteditable="true"] {
-    padding: 6px;
   }
   .text {
     ${({isOnFocus, ellipseOnBlur}) => isOnFocus ?
@@ -41,11 +33,12 @@ export const InputWrapper = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;`)}
     background-color: transparent;
-    width: ${({width}) => width === "auto" ? "auto" : `${width}px`};
+    width: ${({width}) => width};
     text-align: left;
     transition: border-color 0.2s ease-in-out 0s;
     border: ${({readOnly}) => readOnly ? "2px solid white" : "2px solid black"};
     border-radius: 3px;
+    margin-bottom: 0px
   }
   .textarea {
     overflow-y: scroll;

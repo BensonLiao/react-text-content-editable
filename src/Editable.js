@@ -49,7 +49,7 @@ const Editable = ({
 
   const onBlur = () => {
     setOnFocus(false);
-    setBorderBottom("2px solid white");
+    setBorderBottom("none");
     setInputHeight("auto");
     setInputWidth("auto");
   };
@@ -81,7 +81,7 @@ const Editable = ({
   const MainWrapper = customWrapper && isStyledComponent(customWrapper) ? customWrapper : Wrapper;
   const CustomTag = `${tag}`;
   return (
-    <MainWrapper extendStyle={customWrapper && !isStyledComponent(customWrapper) && customWrapper.props.style}>
+    <MainWrapper width={width} extendStyle={customWrapper && !isStyledComponent(customWrapper) && customWrapper.props.style}>
       <RootWrapper>
         <InputContainer width={width}>
           <InputWrapper width={inputWidth} readOnly={readOnly} isOnFocus={isOnFocus} ellipseOnBlur={ellipseOnBlur}>
