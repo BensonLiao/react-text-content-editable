@@ -9,15 +9,16 @@ npm i react-text-content-editable
 
 ## Demo
 
-<a href="https://mpcv6.csb.app/" target="_blank">https://mpcv6.csb.app/ </a><br/>
-<a href="https://mpcv6.codesandbox.io/" target="_blank">https://mpcv6.codesandbox.io/ </a>
+<a href="https://70ff5.csb.app/" target="_blank">demo link</a><br/>
+[![Edit blog](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-content-editable-70ff5)
 
 ## Usage
 
 
-```javascript
-import React, { useState } from 'react'
-import Editable from 'react-text-content-editable'
+```js
+const React = require('react');
+const {useState} = require('react');
+const ContentEditable = require('@benson.liao/react-content-editable').default;
 
 const App = () => {
   const [text, setText] = useState('')
@@ -27,13 +28,35 @@ const App = () => {
   }
 
   return (
-        <Editable 
-            tag='p'
-            type='text'
-            maxLength='20'
-            onChange={onChange}
-            value={text}
-         />
+    <ContentEditable 
+      tag='p'
+      maxLength='20'
+      onChange={onChange}
+      value={text}
+    />
+  )
+}
+```
+
+```js
+# es6
+import React, { useState } from 'react'
+import ContentEditable from "@benson.liao/react-content-editable";
+
+const App = () => {
+  const [text, setText] = useState('')
+
+  const onChange = (value) => {
+    setText(value)
+  }
+
+  return (
+    <ContentEditable 
+      tag='p'
+      maxLength='20'
+      onChange={onChange}
+      value={text}
+    />
   )
 }
 ```
@@ -41,11 +64,10 @@ const App = () => {
 ### Editable Text
 ```js
 <Editable
-    tag="h1"
-    type='text'
-    maxLength='20'
-    onChange={onChange}
-    value={data}
+  tag="p"
+  maxLength='20'
+  onChange={onChange}
+  value={data}
 />
 ```
 
@@ -53,11 +75,10 @@ const App = () => {
 ### Editable Text Read only
 ```js
 <Editable
-    tag="h1"
-    type='text'
-    maxLength='20'
-    onChange={onChange}
-    readOnly={true}
+  readOnly
+  tag="h1"
+  maxLength='20'
+  onChange={onChange}
 />
 ```
 
