@@ -4,7 +4,7 @@ A Component for making text editable with input like features
 
 
 ```
-npm i react-text-content-editable
+npm i @benson.liao/react-content-editable
 ```
 
 ## Demo
