@@ -1,4 +1,4 @@
-A Component for making text editable with input like features
+A Component for making text editable with input like features (e.g. max length)
 
 ## Installation
 
@@ -86,4 +86,7 @@ const App = () => {
 
 ## Contributing
 We would love some contributions! Check out <a href="https://github.com/pkumar98/react-text-content-editable">this document</a> to get started.
+
+## Todo
+Improve onPaste handler
 
