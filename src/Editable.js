@@ -68,10 +68,10 @@ const Editable = ({
   const onPaste = e => {
     const selection = window.getSelection && window.getSelection();
     const {textContent} = e.currentTarget;
-    const pastedText = e.clipboardData.getData('text/plain');
-    const newContent = textContent.substring(0, selection.anchorOffset) +
+    const pastedText = e.clipboardData.getData('text/plain') || '';
+    const newContent = textContent.substring(0, selection.anchorOffset || 0) +
       pastedText +
-      textContent.substring(selection.focusOffset);
+      textContent.substring(selection.focusOffset || 0);
     const rem = +maxLength - newContent.length;
     if (rem <= 0) {
       e.preventDefault();
