@@ -67,14 +67,15 @@ const Editable = ({
   };
   const onPaste = e => {
     const rem = +maxLength - inputRef.current.innerText.length;
-    const selection = window.getSelection && window.getSelection() || '';
-    const isSelectedAll = selection.toString().length === inputRef.current.innerText.length || false;
+    const selection = (window.getSelection && window.getSelection()) || '';
+    const {textContent} = e.currentTarget;
+    const pastedText = e.clipboardData.getData('text/plain');
+    const newContent = textContent.substring(0, selection.anchorOffset) +
+      pastedText +
+      textContent.substring(selection.anchorOffset + pastedText.length);
     if (rem <= 0) {
       e.preventDefault();
-      const {textContent} = e.currentTarget;
-      const text = e.clipboardData.getData('text/plain');
-      const fullText = isSelectedAll ? text : textContent + text;
-      const mData = fullText.slice(0, +maxLength);
+      const mData = newContent.slice(0, +maxLength);
       inputRef.current.innerText = mData;
     }
   };
