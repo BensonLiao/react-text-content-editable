@@ -28,7 +28,7 @@ export const InputWrapper = styled.div`
   }
   .text {
     ${({isOnFocus, ellipseOnBlur}) => isOnFocus ?
-    '' :
+    'cursor: text;' :
     ellipseOnBlur && (`overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;`)}
