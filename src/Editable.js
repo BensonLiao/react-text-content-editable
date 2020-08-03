@@ -66,17 +66,18 @@ const Editable = ({
     }
   };
   const onPaste = e => {
-    const rem = +maxLength - inputRef.current.innerText.length;
-    const selection = (window.getSelection && window.getSelection()) || '';
+    const selection = window.getSelection && window.getSelection();
     const {textContent} = e.currentTarget;
     const pastedText = e.clipboardData.getData('text/plain');
     const newContent = textContent.substring(0, selection.anchorOffset) +
       pastedText +
-      textContent.substring(selection.anchorOffset + pastedText.length);
+      textContent.substring(selection.focusOffset);
+    const rem = +maxLength - newContent.length;
     if (rem <= 0) {
       e.preventDefault();
       const mData = newContent.slice(0, +maxLength);
       inputRef.current.innerText = mData;
+      placeCaretAtEnd(inputRef.current);
     }
   };
   const MainWrapper = customWrapper && isStyledComponent(customWrapper) ? customWrapper : Wrapper;
