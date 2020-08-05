@@ -1,6 +1,6 @@
 # react-content-editable [![npm](https://img.shields.io/npm/v/@benson.liao/react-content-editable?color=green)](https://www.npmjs.com/package/@benson.liao/react-content-editable)
 
-A Component for making text editable with input like features (e.g. max length)
+A Component for making element's content editable with input like features (e.g. max length)
 
 ## Installation
 
