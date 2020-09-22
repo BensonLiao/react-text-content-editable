@@ -144,6 +144,7 @@ const Editable = ({
         caretPos += availableSpace;
       }
 
+      onChange(inputRef.current.innerText);
       placeCaretAtPos(inputRef.current, caretPos);
     }
   };
