@@ -50,22 +50,6 @@ const Editable = ({
   const [inputWidth, setInputWidth] = useState(width);
   const [InputHeight, setInputHeight] = useState(height);
   const [isOnFocus, setOnFocus] = useState(false);
-  const placeCaretAtEnd = el => {
-    el.focus();
-    if (window.getSelection && document.createRange) {
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      range.collapse(false);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    } else if (document.body && document.body.createTextRange) {
-      const textRange = document.body.createTextRange();
-      textRange.moveToElementText(el);
-      textRange.collapse(false);
-      textRange.select();
-    }
-  };
 
   const placeCaretAtPos = (el, pos = 0) => {
     el.focus();
@@ -106,7 +90,6 @@ const Editable = ({
     const rem = Number(maxLength) - inputRef.current.innerText.length;
     if (rem < 0 && selection.type !== 'Range') {
       inputRef.current.innerText = value;
-      placeCaretAtEnd(inputRef.current);
     }
 
     onChange(inputRef.current.innerText);
