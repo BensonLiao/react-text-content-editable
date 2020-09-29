@@ -101,17 +101,15 @@ const Editable = ({
     setInputWidth('auto');
   };
 
-  const onInput = e => {
-    const {textContent} = e.currentTarget;
+  const onInput = () => {
+    const selection = window.getSelection && window.getSelection();
     const rem = Number(maxLength) - inputRef.current.innerText.length;
-    if (rem <= 0) {
-      const slicedText = textContent.slice(0, Number(maxLength));
-      inputRef.current.innerText = slicedText;
+    if (rem < 0 && selection.type !== 'Range') {
+      inputRef.current.innerText = value;
       placeCaretAtEnd(inputRef.current);
-      onChange(slicedText);
-    } else {
-      onChange(textContent);
     }
+
+    onChange(inputRef.current.innerText);
   };
 
   const onPaste = e => {
