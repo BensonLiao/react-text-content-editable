@@ -87,9 +87,11 @@ const Editable = ({
 
   const onInput = () => {
     const selection = window.getSelection && window.getSelection();
+    const caretPos = getCaretPosition(inputRef.current);
     const rem = Number(maxLength) - inputRef.current.innerText.length;
     if (rem < 0 && selection.type !== 'Range') {
       inputRef.current.innerText = value;
+      placeCaretAtPos(inputRef.current, caretPos - 1);
     }
 
     onChange(inputRef.current.innerText);
