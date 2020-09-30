@@ -85,21 +85,25 @@ const Editable = ({
     setInputWidth('auto');
   };
 
-  const onInput = () => {
+  const onInput = e => {
     const selection = window.getSelection && window.getSelection();
-    const caretPos = getCaretPosition(inputRef.current);
+    let caretPos = getCaretPosition(inputRef.current);
     const rem = Number(maxLength) - inputRef.current.innerText.length;
     if (rem < 0 && selection.type !== 'Range') {
       inputRef.current.innerText = value;
-      placeCaretAtPos(inputRef.current, caretPos <= 1 ? caretPos : caretPos - 1);
+      caretPos = caretPos <= 1 ? caretPos : caretPos - 1;
+    } else {
+      const {textContent} = e.currentTarget;
+      inputRef.current.innerText = textContent;
     }
 
+    placeCaretAtPos(inputRef.current, caretPos);
     onChange(inputRef.current.innerText);
   };
 
   const onPaste = e => {
-    let caretPos = getCaretPosition(inputRef.current);
     const selection = window.getSelection && window.getSelection();
+    let caretPos = getCaretPosition(inputRef.current);
     const {textContent} = e.currentTarget;
     const pastedText = e.clipboardData.getData('text/plain') || '';
     // If anchorOffset is greater than focusOffset that means user are select from right to left
