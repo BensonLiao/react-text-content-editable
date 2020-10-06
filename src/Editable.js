@@ -51,6 +51,7 @@ const placeCaretAtPos = (el, pos = 0) => {
 
 const imeInputDisableHandler = event => {
   const sel = window.getSelection();
+  // Remember the selection status before calling removeAllRanges
   const textNode = sel.focusNode;
   const caretPos = sel.focusOffset;
   if (sel.type !== 'Range') {
@@ -105,7 +106,8 @@ const Editable = ({
   };
 
   const onInput = e => {
-    inputRef.current.removeEventListener('compositionstart', imeInputDisableHandler);
+    // Make event persistent to access previous property without being nullified
+    e.persist();
     const selection = window.getSelection && window.getSelection();
     let caretPos = getCaretPosition(inputRef.current);
     const rem = Number(maxLength) - inputRef.current.innerText.length;
@@ -113,9 +115,10 @@ const Editable = ({
       inputRef.current.innerText = value;
       caretPos = caretPos <= 1 ? caretPos : caretPos - 1;
       inputRef.current.addEventListener('compositionstart', imeInputDisableHandler);
-    } else {
+    } else if (!e.nativeEvent.isComposing) {
       const {textContent} = e.currentTarget;
       inputRef.current.innerText = textContent;
+      inputRef.current.removeEventListener('compositionstart', imeInputDisableHandler);
     }
 
     placeCaretAtPos(inputRef.current, caretPos);
