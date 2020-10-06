@@ -3,7 +3,6 @@ import React, {createRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {isStyledComponent} from 'styled-components';
 import {Wrapper, RootWrapper, InputContainer, InputWrapper} from './style';
-
 const getCaretPosition = editableDiv => {
   let caretPos = 0;
   let sel;
@@ -49,20 +48,6 @@ const placeCaretAtPos = (el, pos = 0) => {
   }
 };
 
-const imeInputDisableHandler = event => {
-  const sel = window.getSelection();
-  // Remember the selection status before calling removeAllRanges
-  const textNode = sel.focusNode;
-  const caretPos = sel.focusOffset;
-  if (sel.type !== 'Range') {
-    event.preventDefault();
-    sel.removeAllRanges();
-    setTimeout(() => {
-      sel.collapse(textNode || event.target, caretPos);
-    }, 20);
-  }
-};
-
 const Editable = ({
   type,
   onChange,
@@ -83,17 +68,14 @@ const Editable = ({
   const [inputWidth, setInputWidth] = useState(width);
   const [InputHeight, setInputHeight] = useState(height);
   const [isOnFocus, setOnFocus] = useState(false);
-
+  const [inputValue, setInputValue] = useState('');
+  const [caretPos, setCaretPos] = useState(0);
   const onFocus = () => {
     setOnFocus(true);
     if (!readOnly) {
       setInputWidth(width);
       setInputHeight(height);
       setBorderBottom('2px solid #1DA1F1');
-    }
-
-    if (value >= maxLength) {
-      inputRef.current.addEventListener('compositionstart', imeInputDisableHandler);
     }
   };
 
@@ -102,27 +84,47 @@ const Editable = ({
     setBorderBottom('none');
     setInputHeight('auto');
     setInputWidth('auto');
-    inputRef.current.removeEventListener('compositionstart', imeInputDisableHandler);
   };
 
   const onInput = e => {
-    // Make event persistent to access previous property without being nullified
     e.persist();
     const selection = window.getSelection && window.getSelection();
     let caretPos = getCaretPosition(inputRef.current);
     const rem = Number(maxLength) - inputRef.current.innerText.length;
-    if (rem < 0 && selection.type !== 'Range') {
+    if (rem < 0 && selection.type !== 'Range' && !e.nativeEvent.isComposing) {
       inputRef.current.innerText = value;
       caretPos = caretPos <= 1 ? caretPos : caretPos - 1;
-      inputRef.current.addEventListener('compositionstart', imeInputDisableHandler);
     } else if (!e.nativeEvent.isComposing) {
       const {textContent} = e.currentTarget;
       inputRef.current.innerText = textContent;
-      inputRef.current.removeEventListener('compositionstart', imeInputDisableHandler);
     }
 
-    placeCaretAtPos(inputRef.current, caretPos);
     onChange(inputRef.current.innerText);
+    placeCaretAtPos(inputRef.current, caretPos);
+  };
+
+  const onCompositionInput = e => {
+    e.persist();
+    const rem = Number(maxLength) - e.target.innerText.length;
+    if (e.type === 'compositionstart') {
+      setInputValue(e.target.innerText);
+      setCaretPos(getCaretPosition(inputRef.current));
+    } else {
+      const selection = window.getSelection && window.getSelection();
+      let focusOffset = selection.focusOffset;
+      if (rem < 0) {
+        e.preventDefault();
+        const sliceData = e.data.slice(0, rem);
+        const mData = inputValue.substring(0, caretPos || 0) +
+        sliceData +
+          inputValue.substring(caretPos || 0);
+        inputRef.current.innerText = mData;
+        focusOffset = caretPos + sliceData.length;
+      }
+
+      onChange(inputRef.current.innerText);
+      placeCaretAtPos(inputRef.current, focusOffset);
+    }
   };
 
   const onPaste = e => {
@@ -180,6 +182,8 @@ const Editable = ({
               onFocus={onFocus}
               onBlur={onBlur}
               onInput={onInput}
+              onCompositionStart={onCompositionInput}
+              onCompositionEnd={onCompositionInput}
               onPaste={onPaste}
             />
           </InputWrapper>
