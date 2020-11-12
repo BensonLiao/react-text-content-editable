@@ -91,7 +91,14 @@ const Editable = ({
     const selection = window.getSelection && window.getSelection();
     let caretPos = getCaretPosition(inputRef.current);
     const rem = Number(maxLength) - inputRef.current.innerText.length;
-    if (rem < 0 && selection.type !== 'Range' && !e.nativeEvent.isComposing) {
+    // condition 1: new input content's length exceed limit
+    // condition 2: not in the range selection mode
+    // condition 3: not using the composition input method
+    // condition 4: new input are increase the content length
+    if (rem < 0 &&
+      selection.type !== 'Range' &&
+      !e.nativeEvent.isComposing &&
+      value.length < inputRef.current.innerText.length) {
       inputRef.current.innerText = value;
       caretPos = caretPos <= 1 ? caretPos : caretPos - 1;
     } else if (!e.nativeEvent.isComposing) {
