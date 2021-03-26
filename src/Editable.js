@@ -64,7 +64,7 @@ const Editable = ({
 }) => {
   const inputRef = innerRef || createRef();
   const [data] = useState(value);
-  const [borderBottom, setBorderBottom] = useState('2px solid white');
+  const [outlineStyle, setOutlineStyle] = useState('initial');
   const [inputWidth, setInputWidth] = useState(width);
   const [InputHeight, setInputHeight] = useState(height);
   const [isOnFocus, setOnFocus] = useState(false);
@@ -75,13 +75,13 @@ const Editable = ({
     if (!readOnly) {
       setInputWidth(width);
       setInputHeight(height);
-      setBorderBottom('2px solid #1DA1F1');
+      setOutlineStyle('1px solid #1DA1F1');
     }
   };
 
   const onBlur = () => {
     setOnFocus(false);
-    setBorderBottom('none');
+    setOutlineStyle('initial');
     setInputHeight('auto');
     setInputWidth('auto');
   };
@@ -182,7 +182,7 @@ const Editable = ({
               contentEditable={!readOnly}
               style={{
                 height: InputHeight === 'auto' ? 'auto' : `${InputHeight}px`,
-                border: borderBottom,
+                outline: outlineStyle,
                 minWidth: minWidth
               }}
               dangerouslySetInnerHTML={{__html: data.replace(/\n/g, '<br/>')}}
