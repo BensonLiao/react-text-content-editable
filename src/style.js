@@ -25,11 +25,12 @@ export const InputWrapper = styled.div`
     outline: none;
   }
   .text {
-    ${({isOnFocus, ellipseOnBlur}) => isOnFocus ?
-    'cursor: text;' :
-    ellipseOnBlur && (`overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;`)}
+    cursor: text;
+    ${({isOnFocus, ellipseOnBlur}) => !isOnFocus && ellipseOnBlur && (
+      `overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;`
+    )}
     background-color: transparent;
     width: ${({width}) => width};
     text-align: left;
