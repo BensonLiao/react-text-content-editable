@@ -59,6 +59,7 @@ const Editable = ({
   minWidth,
   readOnly,
   ellipseOnBlur,
+  outlineStyleOnFocus,
   innerRef,
   customWrapper
 }) => {
@@ -75,7 +76,7 @@ const Editable = ({
     if (!readOnly) {
       setInputWidth(width);
       setInputHeight(height);
-      setOutlineStyle('1px solid #1DA1F1');
+      setOutlineStyle(outlineStyleOnFocus || '1px solid #1DA1F1');
     }
   };
 
@@ -208,6 +209,7 @@ Editable.defaultProps = {
   minWidth: 'auto',
   readOnly: false,
   ellipseOnBlur: false,
+  outlineStyleOnFocus: null,
   innerRef: null,
   customWrapper: null
 };
@@ -223,6 +225,7 @@ Editable.propTypes = {
   maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   readOnly: PropTypes.bool,
   ellipseOnBlur: PropTypes.bool,
+  outlineStyleOnFocus: PropTypes.string,
   innerRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   customWrapper: PropTypes.oneOfType([PropTypes.object, PropTypes.element])
 };
