@@ -64,7 +64,7 @@ const Editable = ({
 }) => {
   const inputRef = innerRef || createRef();
   const [data] = useState(value);
-  const [outlineStyle, setOutlineStyle] = useState('initial');
+  const [outlineStyle, setOutlineStyle] = useState('1px solid transparent');
   const [inputWidth, setInputWidth] = useState(width);
   const [InputHeight, setInputHeight] = useState(height);
   const [isOnFocus, setOnFocus] = useState(false);
@@ -81,7 +81,7 @@ const Editable = ({
 
   const onBlur = () => {
     setOnFocus(false);
-    setOutlineStyle('initial');
+    setOutlineStyle('1px solid transparent');
     setInputHeight('auto');
     setInputWidth('auto');
   };
