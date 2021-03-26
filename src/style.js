@@ -25,7 +25,7 @@ export const InputWrapper = styled.div`
     outline: none;
   }
   .text {
-    cursor: text;
+    cursor: ${({readOnly}) => readOnly ? 'not-allowed' : 'text'};
     ${({isOnFocus, ellipseOnBlur}) => !isOnFocus && ellipseOnBlur && (
       `overflow: hidden;
       text-overflow: ellipsis;
@@ -35,7 +35,6 @@ export const InputWrapper = styled.div`
     width: ${({width}) => width};
     text-align: left;
     transition: border-color 0.2s ease-in-out 0s;
-    border: ${({readOnly}) => readOnly ? '2px solid white' : '2px solid black'};
     border-radius: 3px;
     margin-bottom: 0px
   }
